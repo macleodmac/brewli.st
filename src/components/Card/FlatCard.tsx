@@ -13,7 +13,6 @@ export interface RecipeCardProps {
 }
 
 export function FlatCard({ link, title, description, isNew, pt }: RecipeCardProps) {
-  console.log(isNew);
   return (
     <Center pt={pt}>
       <BaseCard mb={4}>

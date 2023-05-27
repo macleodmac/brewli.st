@@ -21,7 +21,6 @@ export default function Page() {
       const response = await fetch('/api/recipes/' + router.query.slug);
       const data = await response.json();
       setRecipe(data);
-      console.log(data.method);
     }
     fetchRecipe();
     if (document.referrer) {
