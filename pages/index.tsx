@@ -1,6 +1,7 @@
 import { Box, Container, Flex, HStack, Input, Spacer, Text } from '@chakra-ui/react';
 import { BaseCard } from '@src/components/Card/BaseCard';
 import { FlatCard } from '@src/components/Card/FlatCard';
+import { buildUrl } from '@src/utils';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -108,7 +109,7 @@ export const getServerSideProps: GetServerSideProps<{
   recipeProps: HomePageProps;
 }> = async ({ query }) => {
   const { q } = query;
-  const response = await fetch('http://localhost:3000/api/recipes');
+  const response = await fetch(buildUrl('/api/recipes'));
   const data = await response.json();
   var filteredRecipes = data.recipes;
   if (q) {
