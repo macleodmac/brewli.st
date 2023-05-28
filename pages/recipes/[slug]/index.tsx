@@ -12,11 +12,6 @@ import { GetServerSideProps, GetStaticPaths } from 'next';
 interface RecipePageProps {
   recipe: Recipe;
 }
-const steps = [
-  { title: 'First', description: 'Contact Info' },
-  { title: 'Second', description: 'Date & Time' },
-  { title: 'Third', description: 'Select Rooms' },
-];
 
 // TODO: add dark mode
 export default function Page({ recipe }: RecipePageProps) {
@@ -69,32 +64,6 @@ export default function Page({ recipe }: RecipePageProps) {
               />
             </GridItem>
           </Grid>
-          {/* <Stepper
-            index={recipe.method.length - 1}
-            size="lg"
-            orientation="vertical"
-            height="400px"
-            gap="0"
-            color={'navy.600'}
-          >
-            {recipe.method.map((step, index) => (
-              <Step key={index}>
-                <StepIndicator>
-                  <StepStatus
-                    complete={<StepIcon />}
-                    incomplete={<StepNumber />}
-                    active={<StepNumber />}
-                  />
-                </StepIndicator>
-                <Box flexShrink="0">
-                  <StepTitle>{'Step ' + (index + 1)}</StepTitle>
-                  <StepDescription>{step.description}</StepDescription>
-                </Box>
-
-                <StepSeparator />
-              </Step>
-            ))}
-          </Stepper> */}
         </Container>
       )}
     </>
@@ -108,7 +77,6 @@ export const getStaticProps: GetServerSideProps = async ({ params }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const recipes = await notionClient.listRecipes();
-  console.log(recipes);
   const paths = recipes.recipes.map((recipe) => ({
     params: { slug: recipe.slug },
   }));

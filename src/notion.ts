@@ -65,7 +65,7 @@ class NotionRecipeClient {
   }
 
   slugifyTitle(title: string): string {
-    return slugify(title, { lower: true });
+    return slugify(title, { lower: true, remove: /[*+~.()'"!:@]/g });
   }
 
   pickRecipePage(results: PageObjectResponse[], slug: string): PageObjectResponse | undefined {
@@ -77,7 +77,7 @@ class NotionRecipeClient {
     }
   }
 
-  colonDelimtedTimeToSeconds(delimitedString: string): number {
+  colonDelimitedTimeToSeconds(delimitedString: string): number {
     var parts = delimitedString.split(':');
     var minutes = parseInt(parts[0], 10);
     var seconds = parseInt(parts[1], 10);
@@ -89,7 +89,7 @@ class NotionRecipeClient {
     const recipeSteps = steps.filter((step) => stepIds.includes(step.id));
     const formattedSteps = recipeSteps.map((step) => {
       return {
-        time: this.colonDelimtedTimeToSeconds(step.properties.Time.rich_text[0].plain_text),
+        time: this.colonDelimitedTimeToSeconds(step.properties.Time.rich_text[0].plain_text),
         targetWeight: step.properties.Weight.number,
         description: step.properties.Description.rich_text[0].plain_text,
       };
@@ -116,7 +116,7 @@ class NotionRecipeClient {
     }
     const allSteps = stepsResponse.results as PageObjectResponse[];
     const steps = this.buildRecipeSteps(recipe, allSteps);
-
+    console.log(allSteps);
     return {
       createdAt: recipe.created_time,
       slug: slug,
@@ -143,16 +143,24 @@ class NotionRecipeClient {
     });
     const results = response.results as PageObjectResponse[];
 
-    const recipes = results.map((page) => {
-      return {
-        createdAt: page.created_time,
-        slug: this.slugifyTitle(page.properties.Name.title[0].plain_text),
-        title: page.properties.Name.title[0].plain_text,
-        description: page.properties.Description.rich_text[0].plain_text,
-      };
+    // try catch any errors and ignore
+    // Filter where empty object
+    const recipes = [];
+    results.forEach((page) => {
+      try {
+        const recipe = {
+          createdAt: page.created_time,
+          slug: this.slugifyTitle(page.properties.Name.title[0].plain_text),
+          title: page.properties.Name.title[0].plain_text,
+          description: page.properties.Description.rich_text[0].plain_text,
+        };
+        recipes.push(recipe);
+      } catch (error) {
+        // Ignore the error and continue to the next iteration
+      }
     });
     return {
-      recipes,
+      recipes: recipes,
     };
   }
 }

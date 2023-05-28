@@ -35,7 +35,7 @@ export function RecipeTags({
       <IconBadge text={coffeeGrind} icon={TbColorFilter} color="orange.600" />
       <IconBadge text={waterWeight + 'g'} icon={TbDroplet} color="blue.600" />
       <IconBadge text={waterTemp + '°'} icon={FaThermometerThreeQuarters} color="blue.600" />
-      <IconBadge text={formatMinutesSeconds(brewTime)} icon={FaRegClock} color="purple.600" />
+      <IconBadge text={formatMinutesSeconds(brewTime)} icon={FaRegClock} color="purple.700" />
     </>
   );
 }
