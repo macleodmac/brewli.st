@@ -31,12 +31,8 @@ export function RecipeTags({
   return (
     <>
       <IconBadge text={coffeeWeight + 'g'} icon={TbWeight} color="orange.600" />
-      <IconBadge text={toTitleCase(coffeeRoast) + ' Roast'} icon={TbFlame} color="orange.600" />
-      <IconBadge
-        text={toTitleCase(coffeeGrind) + ' Grind'}
-        icon={TbColorFilter}
-        color="orange.600"
-      />
+      <IconBadge text={coffeeRoast} icon={TbFlame} color="orange.600" />
+      <IconBadge text={coffeeGrind} icon={TbColorFilter} color="orange.600" />
       <IconBadge text={waterWeight + 'g'} icon={TbDroplet} color="blue.600" />
       <IconBadge text={waterTemp + '°'} icon={FaThermometerThreeQuarters} color="blue.600" />
       <IconBadge text={formatMinutesSeconds(brewTime)} icon={FaRegClock} color="purple.600" />

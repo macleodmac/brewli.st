@@ -1,5 +1,5 @@
 {
-  "name": "mantine-next-template",
+  "name": "brewlist",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -31,14 +31,8 @@
     "@emotion/react": "^11.11.0",
     "@emotion/server": "^11.11.0",
     "@emotion/styled": "^11.11.0",
-    "@mantine/carousel": "6.0.11",
-    "@mantine/core": "6.0.11",
-    "@mantine/dates": "6.0.11",
-    "@mantine/hooks": "6.0.11",
-    "@mantine/next": "6.0.11",
-    "@mantine/notifications": "6.0.11",
-    "@mantine/prism": "6.0.11",
     "@next/bundle-analyzer": "^13.4.3",
+    "@notionhq/client": "^2.2.5",
     "@tabler/icons": "^2.20.0",
     "@tabler/icons-react": "^2.20.0",
     "cookies-next": "^2.1.1",
@@ -48,7 +42,8 @@
     "next": "13.4.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-icons": "^4.8.0"
+    "react-icons": "^4.8.0",
+    "slugify": "^1.6.6"
   },
   "devDependencies": {
     "@babel/core": "^7.21.8",
@@ -76,7 +71,6 @@
     "eslint": "^8.41.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
-    "eslint-config-mantine": "2.0.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jest": "^27.2.1",
     "eslint-plugin-jsx-a11y": "^6.7.1",

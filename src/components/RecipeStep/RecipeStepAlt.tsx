@@ -1,6 +1,7 @@
-import { Box, Center, HStack, Heading, Icon, Text, VStack } from '@chakra-ui/react';
+import { Box, Center, Flex, HStack, Heading, Icon, Text, VStack } from '@chakra-ui/react';
 import { BiStopwatch, BiTargetLock } from 'react-icons/bi';
 import { BaseCard } from '../Card/BaseCard';
+import { IconBadge } from '../IconBadge/IconBadge';
 
 export interface RecipeStepProps {
   number: number;
@@ -13,9 +14,28 @@ export function formatMinutesSeconds(s: number) {
   return (s - (s %= 60)) / 60 + (9 < s ? "'" : "'0") + s + '"';
 }
 
-export function RecipeStep({ number, time, targetWeight, description }: RecipeStepProps) {
+export function RecipeStepAlt({ number, time, targetWeight, description }: RecipeStepProps) {
   return (
     <>
+      <Flex width={'100%'} height={'100%'}>
+        <BaseCard minH="100%" mb={0} mr={2}>
+          <Heading p={1.5} fontSize="2xl" width={'100%'} whiteSpace="nowrap">
+            {number}
+          </Heading>
+        </BaseCard>
+        <VStack minH="100%" display={'flex'}>
+          <IconBadge
+            icon={BiStopwatch}
+            text={formatMinutesSeconds(time)}
+            color="navy.600"
+            h={'50%'}
+          />
+          <IconBadge icon={BiTargetLock} text={targetWeight + 'g'} color="navy.600" h={'50%'} />
+        </VStack>
+        <BaseCard flex={1} minH="100%" mb={0}>
+          <Text p="3">{description}</Text>
+        </BaseCard>
+      </Flex>
       <BaseCard display={'flex'}>
         <HStack spacing={0} minHeight="100px" display="flex">
           <VStack

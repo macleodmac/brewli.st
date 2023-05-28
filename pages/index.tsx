@@ -1,15 +1,14 @@
 import { Box, Container, Flex, HStack, Input, Spacer, Text } from '@chakra-ui/react';
 import { BaseCard } from '@src/components/Card/BaseCard';
 import { FlatCard } from '@src/components/Card/FlatCard';
-import { buildUrl } from '@src/utils';
+import { MinimalRecipe, notionClient } from '@src/notion';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { RecipeResponse } from './api/recipes/[slug]';
 
 interface HomePageProps {
-  initialRecipes: RecipeResponse[];
-  initialFilteredRecipes: RecipeResponse[];
+  initialRecipes: MinimalRecipe[];
+  initialFilteredRecipes: MinimalRecipe[];
   initialFilter?: string;
 }
 
@@ -18,7 +17,7 @@ export default function HomePage({
 }: {
   recipeProps: HomePageProps;
 }) {
-  const [filteredRecipes, setFilteredRecipes] = useState<RecipeResponse[]>(initialFilteredRecipes);
+  const [filteredRecipes, setFilteredRecipes] = useState<MinimalRecipe[]>(initialFilteredRecipes);
   const [filter, setFilter] = useState(initialFilter || '');
 
   const router = useRouter();
@@ -31,9 +30,11 @@ export default function HomePage({
       recipe.title.toLowerCase().includes(filter.toLowerCase())
     );
     setFilteredRecipes(filteredItems);
-    router.replace({
-      query: { q: filter },
-    });
+    if (filter !== '') {
+      router.replace({
+        query: { q: filter },
+      });
+    }
   };
 
   const handleInputChange = (event: { target: { value: any } }) => {
@@ -51,13 +52,13 @@ export default function HomePage({
                 p={4}
                 alignItems="center"
                 justifyContent={'space-between'}
-                // roundedBottom={'none'}
                 roundedLeft={'xxs'}
                 borderRight={'1px'}
                 borderColor={'brown.900'}
-                cursor={'pointer'}
                 bgColor={'navy.600'}
                 textColor={'white'}
+                as={'a'}
+                href={'/'}
               >
                 <Text fontSize={'xl'} fontWeight={'semibold'} textColor={'inherit'}>
                   brewli.st
@@ -87,7 +88,12 @@ export default function HomePage({
         <Spacer h={24} />
 
         <Box pb={8}>
-          <Container maxW="container.xl" columnGap={9} sx={{ columnCount: [1, 2] }}>
+          <Container
+            maxW="container.xl"
+            columnGap={9}
+            // @ts-ignore
+            sx={{ columnCount: { base: [1], md: [1, 2] } }}
+          >
             {filteredRecipes &&
               filteredRecipes.map((recipe) => (
                 <FlatCard
@@ -95,7 +101,7 @@ export default function HomePage({
                   key={recipe.title}
                   title={recipe.title}
                   description={recipe.description}
-                  isNew={recipe.createdAt > new Date(Date.now() - 1000 * 60 * 60 * 24)}
+                  // isNew={recipe.createdAt > new Date(Date.now() - 1000 * 60 * 60 * 24)}
                 />
               ))}
           </Container>
@@ -107,13 +113,14 @@ export default function HomePage({
 
 export const getServerSideProps: GetServerSideProps<{
   recipeProps: HomePageProps;
-}> = async ({ query }) => {
+}> = async ({ query, res }) => {
+  res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=300');
+
   const { q } = query;
-  const response = await fetch(buildUrl('/api/recipes'));
-  const data = await response.json();
+  const data = await notionClient.listRecipes();
   var filteredRecipes = data.recipes;
   if (q) {
-    const filteredItems = data.recipes.filter((recipe: RecipeResponse) =>
+    const filteredItems = data.recipes.filter((recipe: MinimalRecipe) =>
       recipe.title.toLowerCase().includes(q.toString().toLowerCase())
     );
     filteredRecipes = filteredItems;
@@ -123,7 +130,7 @@ export const getServerSideProps: GetServerSideProps<{
       recipeProps: {
         initialRecipes: data.recipes,
         initialFilteredRecipes: filteredRecipes,
-        initialFilter: q as string,
+        initialFilter: (q as string) || '',
       },
     },
   };

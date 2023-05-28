@@ -88,7 +88,7 @@ const recipeFactory = () => {
   };
 };
 
-const NUM_RECIPES = 100;
+const NUM_RECIPES = 10;
 
 const RECIPES = new Map<string, Recipe>(
   Array.from({ length: NUM_RECIPES }, () => recipeFactory()).map((recipe) => [recipe.slug, recipe])
