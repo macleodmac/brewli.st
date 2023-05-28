@@ -1,4 +1,4 @@
-import { RecipeStep, RecipeStepProps } from '../RecipeStep/RecipeStep';
+import { RecipeStepAlt, RecipeStepProps } from '../RecipeStep/RecipeStepAlt';
 
 interface RecipeTimelineProps {
   steps: RecipeStepProps[];
@@ -7,7 +7,7 @@ export function RecipeTimeline({ steps }: RecipeTimelineProps) {
   return (
     <>
       {steps.map((step) => (
-        <RecipeStep
+        <RecipeStepAlt
           key={step.number}
           number={step.number}
           time={step.time}

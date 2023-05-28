@@ -27,5 +27,5 @@ Default.args = {
   number: 1,
   time: 120,
   targetWeight: 100,
-  description: faker.lorem.paragraph(5),
+  description: faker.lorem.paragraph(1),
 };

@@ -1,5 +1,6 @@
 import { Box, Center, Flex, HStack, Heading, Text } from '@chakra-ui/react';
 import { brewListTheme } from '@src/index';
+import Link from 'next/link';
 import { BsArrowUpRight } from 'react-icons/bs';
 import { GiCoffeeBeans } from 'react-icons/gi';
 import { BaseCard } from './BaseCard';
@@ -25,9 +26,11 @@ export function FlatCard({ link, title, description, isNew, pt }: RecipeCardProp
             </BaseCard>
           )}
 
-          <Heading color={'navy.600'} fontSize={'2xl'} fontWeight={'bold'}>
-            {title}
-          </Heading>
+          <Link href={link}>
+            <Heading color={'navy.600'} fontSize={'2xl'} fontWeight={'bold'}>
+              {title}
+            </Heading>
+          </Link>
           <Text color={'navy.600'} noOfLines={5} mt={2}>
             {description}
           </Text>
