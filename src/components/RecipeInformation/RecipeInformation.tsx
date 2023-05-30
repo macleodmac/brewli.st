@@ -7,7 +7,10 @@ interface RecipeInformationProps {
   link: string;
 }
 
-export function RecipeInformation({ description, link }: RecipeInformationProps) {
+export function RecipeInformation({
+  description,
+  link,
+}: RecipeInformationProps) {
   return (
     <>
       <BaseCard>
@@ -15,8 +18,8 @@ export function RecipeInformation({ description, link }: RecipeInformationProps)
           <Flex
             p={3}
             justifyContent={'space-between'}
-            alignItems="center"
-            w="full"
+            alignItems='center'
+            w='full'
             borderRight={'1px'}
           >
             <Heading color={'navy.600'} fontSize={'2xl'} fontWeight={'bold'}>
@@ -26,7 +29,7 @@ export function RecipeInformation({ description, link }: RecipeInformationProps)
           <Flex
             p={3}
             justifyContent={'space-between'}
-            alignItems="center"
+            alignItems='center'
             roundedBottom={'none'}
             as={'a'}
             href={link}
@@ -35,10 +38,45 @@ export function RecipeInformation({ description, link }: RecipeInformationProps)
           </Flex>
         </HStack>
 
-        <Box p={3} borderTop={'1px'} color="brown.900">
+        <Box p={3} borderTop={'1px'} color='brown.900'>
           <Text color={'navy.600'}>{description}</Text>
         </Box>
       </BaseCard>
+      {/* <BaseCard>
+        <Flex p={3} w='full'>
+          <Heading color={'navy.600'} fontSize={'2xl'} fontWeight={'bold'}>
+            Equipment
+          </Heading>
+        </Flex>
+
+        <HStack spacing={0} borderTop={'1px'} color='brown.900'>
+          <Flex
+            p={1}
+            justifyContent={'center'}
+            alignItems='center'
+            roundedBottom={'none'}
+            borderRight={'1px'}
+            width={'25%'}
+          >
+            <SvgFiltercone
+              // strokeWidth={10}
+              width={'90%'}
+              height={'90%'}
+              fill={brewListTheme.colors.navy[600]}
+              // style={{ marginLeft: '0.35rem', marginRight: '0.35rem' }}
+            />
+          </Flex>
+
+          <Flex
+            p={3}
+            justifyContent={'space-between'}
+            alignItems='center'
+            w='full'
+          >
+            <Text color={'navy.600'}>Ceramic V60</Text>
+          </Flex>
+        </HStack>
+      </BaseCard> */}
     </>
   );
 }

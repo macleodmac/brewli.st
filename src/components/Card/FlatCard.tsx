@@ -64,13 +64,13 @@ export function FlatCard({
             </Text>
             <BsArrowUpRight color={brewListTheme.colors.navy[600]} />
           </Flex>
-          <Box cursor='pointer' color={'navy.600'} height='100%' pr={2}>
-            <SvgFiltercone
-              width={50}
-              height={50}
-              fill={brewListTheme.colors.navy[600]}
-            />
-          </Box>
+          <SvgFiltercone
+            // strokeWidth={10}
+            width={55}
+            height={55}
+            fill={brewListTheme.colors.navy[600]}
+            style={{ marginLeft: '0.35rem', marginRight: '0.35rem' }}
+          />
         </HStack>
       </BaseCard>
     </Center>

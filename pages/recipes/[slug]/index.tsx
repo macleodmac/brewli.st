@@ -33,39 +33,40 @@ export default function Page({ recipe }: RecipePageProps) {
       >
         <IconBadge text={''} icon={BiArrowBack} color={'brown.900'} />
       </Box> */}
-      {recipe && recipe.method && (
-        <Container maxW="container.xl" pt={2}>
-          <Grid templateColumns="repeat(3, 1fr)" rowGap={2} columnGap={5}>
-            <GridItem w="100%" colSpan={3}>
-              <RecipeTitle title={recipe.title} />
-            </GridItem>
-            <GridItem w="100%" colSpan={3}>
-              <RecipeTags
-                brewTime={recipe.brewTime}
-                coffeeWeight={recipe.coffee.grams}
-                coffeeGrind={recipe.coffee.grind}
-                coffeeRoast={recipe.coffee.roast}
-                waterWeight={recipe.water.grams}
-                waterTemp={recipe.water.temperature}
-              />
-            </GridItem>
+      <Container maxW='container.xl' pt={2}>
+        <Grid templateColumns='repeat(3, 1fr)' rowGap={2} columnGap={5}>
+          <GridItem w='100%' colSpan={3}>
+            <RecipeTitle title={recipe.title} />
+          </GridItem>
+          <GridItem w='100%' colSpan={3}>
+            <RecipeTags
+              brewTime={recipe.brewTime}
+              coffeeWeight={recipe.coffee.grams}
+              coffeeGrind={recipe.coffee.grind}
+              coffeeRoast={recipe.coffee.roast}
+              waterWeight={recipe.water.grams}
+              waterTemp={recipe.water.temperature}
+            />
+          </GridItem>
 
-            <GridItem colSpan={{ base: 3, md: 1 }}>
-              <RecipeInformation description={recipe.description} link={recipe.link} />
-            </GridItem>
-            <GridItem colSpan={{ base: 3, md: 2 }}>
-              <RecipeTimeline
-                steps={recipe.method.map((step, index) => ({
-                  number: index + 1,
-                  time: step.time,
-                  targetWeight: step.targetWeight,
-                  description: step.description,
-                }))}
-              />
-            </GridItem>
-          </Grid>
-        </Container>
-      )}
+          <GridItem colSpan={{ base: 3, md: 1 }}>
+            <RecipeInformation
+              description={recipe.description}
+              link={recipe.link}
+            />
+          </GridItem>
+          <GridItem colSpan={{ base: 3, md: 2 }}>
+            <RecipeTimeline
+              steps={recipe.method.map((step, index) => ({
+                number: index + 1,
+                time: step.time,
+                targetWeight: step.targetWeight,
+                description: step.description,
+              }))}
+            />
+          </GridItem>
+        </Grid>
+      </Container>
     </>
   );
 }
