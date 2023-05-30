@@ -6,9 +6,6 @@ const SvgChemex = (props: SVGProps<SVGSVGElement>) => (
     id='chemex_svg__Ebene_1'
     x={0}
     y={0}
-    style={{
-      enableBackground: 'new 0 0 256 256',
-    }}
     viewBox='0 0 256 256'
     width='1em'
     height='1em'

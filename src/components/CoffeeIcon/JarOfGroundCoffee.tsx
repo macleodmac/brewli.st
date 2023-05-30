@@ -1,26 +1,22 @@
-import * as React from "react";
-import type { SVGProps } from "react";
+import type { SVGProps } from 'react';
 const SvgJarOfGroundCoffee = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    xmlns="http://www.w3.org/2000/svg"
-    xmlSpace="preserve"
-    id="jar-of-ground-coffee_svg__Ebene_1"
+    xmlns='http://www.w3.org/2000/svg'
+    xmlSpace='preserve'
+    id='jar-of-ground-coffee_svg__Ebene_1'
     x={0}
     y={0}
-    style={{
-      enableBackground: "new 0 0 256 256",
-    }}
-    viewBox="0 0 256 256"
-    width="1em"
-    height="1em"
+    viewBox='0 0 256 256'
+    width='1em'
+    height='1em'
     {...props}
   >
     <style>
       {
-        ".jar-of-ground-coffee_svg__st0,.jar-of-ground-coffee_svg__st1{stroke-miterlimit:10}.jar-of-ground-coffee_svg__st0{fill:none;stroke:red}.jar-of-ground-coffee_svg__st1{stroke:url(#jar-of-ground-coffee_svg__SVGID_1_)}"
+        '.jar-of-ground-coffee_svg__st0,.jar-of-ground-coffee_svg__st1{stroke-miterlimit:10}.jar-of-ground-coffee_svg__st0{fill:none;stroke:red}.jar-of-ground-coffee_svg__st1{stroke:url(#jar-of-ground-coffee_svg__SVGID_1_)}'
       }
     </style>
-    <path d="M184 54H72s-12 8-12 32v114c0 22.1 17.9 40 40 40h56c22.1 0 40-17.9 40-40V86c0-23.6-12-32-12-32zm4 146c0 17.6-14.4 32-32 32h-56c-17.6 0-32-14.4-32-32V86c0-14.1 4.6-21.2 7.1-24h105.7c2.5 2.9 7.2 10.1 7.2 24v114zM72 50h112c2.2 0 4-1.8 4-4V28c0-6.6-5.4-12-12-12H80c-6.6 0-12 5.4-12 12v18c0 2.2 1.8 4 4 4z" />
+    <path d='M184 54H72s-12 8-12 32v114c0 22.1 17.9 40 40 40h56c22.1 0 40-17.9 40-40V86c0-23.6-12-32-12-32zm4 146c0 17.6-14.4 32-32 32h-56c-17.6 0-32-14.4-32-32V86c0-14.1 4.6-21.2 7.1-24h105.7c2.5 2.9 7.2 10.1 7.2 24v114zM72 50h112c2.2 0 4-1.8 4-4V28c0-6.6-5.4-12-12-12H80c-6.6 0-12 5.4-12 12v18c0 2.2 1.8 4 4 4z' />
     <circle cx={84} cy={198} r={2} />
     <circle cx={80} cy={198} r={2} />
     <circle cx={76} cy={198} r={2} />
