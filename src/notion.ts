@@ -48,7 +48,13 @@ export interface Recipe {
     temperature: number;
   };
   brewTime: number;
+  methodPrep: string;
   method: RecipeStep[];
+}
+
+interface _RecipeSteps {
+  steps: RecipeStep[];
+  prep: string;
 }
 
 class NotionRecipeClient {
@@ -56,7 +62,11 @@ class NotionRecipeClient {
   recipeDatabaseId: string;
   recipeStepsDatabaseId: string;
 
-  constructor(apiKey: string, recipeDatabaseId: string, recipeStepsDatabaseId: string) {
+  constructor(
+    apiKey: string,
+    recipeDatabaseId: string,
+    recipeStepsDatabaseId: string
+  ) {
     this.client = new Client({
       auth: apiKey,
     });
@@ -68,9 +78,14 @@ class NotionRecipeClient {
     return slugify(title, { lower: true, remove: /[*+~.()'"!:@]/g });
   }
 
-  pickRecipePage(results: PageObjectResponse[], slug: string): PageObjectResponse | undefined {
+  pickRecipePage(
+    results: PageObjectResponse[],
+    slug: string
+  ): PageObjectResponse | undefined {
     for (const page of results) {
-      const slugifiedTitle = this.slugifyTitle(page.properties.Name.title[0].plain_text);
+      const slugifiedTitle = this.slugifyTitle(
+        page.properties.Name.title[0].plain_text
+      );
       if (slugifiedTitle === slug) {
         return page;
       }
@@ -84,18 +99,32 @@ class NotionRecipeClient {
     return minutes * 60 + seconds;
   }
 
-  buildRecipeSteps(recipe: PageObjectResponse, steps: PageObjectResponse[]): RecipeStep[] {
-    const stepIds = recipe.properties.Steps.relation.map((relation) => relation.id);
+  buildRecipeSteps(
+    recipe: PageObjectResponse,
+    steps: PageObjectResponse[]
+  ): _RecipeSteps {
+    const stepIds = recipe.properties.Steps.relation.map(
+      (relation) => relation.id
+    );
     const recipeSteps = steps.filter((step) => stepIds.includes(step.id));
-    const formattedSteps = recipeSteps.map((step) => {
-      return {
-        time: this.colonDelimitedTimeToSeconds(step.properties.Time.rich_text[0].plain_text),
-        targetWeight: step.properties.Weight.number,
-        description: step.properties.Description.rich_text[0].plain_text,
-      };
+    var prep = '';
+    var formattedSteps = [];
+    recipeSteps.forEach((step) => {
+      if (step.properties.Prep.checkbox === true) {
+        prep = step.properties.Description.rich_text[0].plain_text;
+      } else {
+        formattedSteps.push({
+          time: this.colonDelimitedTimeToSeconds(
+            step.properties.Time.rich_text[0].plain_text
+          ),
+          targetWeight: step.properties.Weight.number,
+          description: step.properties.Description.rich_text[0].plain_text,
+        });
+      }
     });
+
     formattedSteps.sort((a, b) => a.time - b.time);
-    return formattedSteps;
+    return { steps: formattedSteps, prep };
   }
 
   async getRecipeBySlug(slug: string): Promise<Recipe | undefined> {
@@ -116,7 +145,6 @@ class NotionRecipeClient {
     }
     const allSteps = stepsResponse.results as PageObjectResponse[];
     const steps = this.buildRecipeSteps(recipe, allSteps);
-    console.log(allSteps);
     return {
       createdAt: recipe.created_time,
       slug: slug,
@@ -133,7 +161,8 @@ class NotionRecipeClient {
         temperature: recipe.properties.WaterTemperature.number,
       },
       brewTime: recipe.properties.BrewTimeMin.number,
-      method: steps,
+      method: steps.steps,
+      methodPrep: steps.prep,
     };
   }
 

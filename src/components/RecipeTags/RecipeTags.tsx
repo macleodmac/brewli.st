@@ -1,4 +1,5 @@
-import { FaRegClock, FaThermometerThreeQuarters } from 'react-icons/fa';
+import { BiTimeFive } from 'react-icons/bi';
+import { FaThermometerThreeQuarters } from 'react-icons/fa';
 import { TbColorFilter, TbDroplet, TbFlame, TbWeight } from 'react-icons/tb';
 import { IconBadge } from '../IconBadge/IconBadge';
 import { formatMinutesSeconds } from '../RecipeStep/RecipeStep';
@@ -30,12 +31,20 @@ export function RecipeTags({
 }: RecipeTagsProps) {
   return (
     <>
-      <IconBadge text={coffeeWeight + 'g'} icon={TbWeight} color="orange.600" />
-      <IconBadge text={coffeeRoast} icon={TbFlame} color="orange.600" />
-      <IconBadge text={coffeeGrind} icon={TbColorFilter} color="orange.600" />
-      <IconBadge text={waterWeight + 'g'} icon={TbDroplet} color="blue.600" />
-      <IconBadge text={waterTemp + '°'} icon={FaThermometerThreeQuarters} color="blue.600" />
-      <IconBadge text={formatMinutesSeconds(brewTime)} icon={FaRegClock} color="purple.700" />
+      <IconBadge text={coffeeWeight + 'g'} icon={TbWeight} color='orange.600' />
+      <IconBadge text={coffeeRoast} icon={TbFlame} color='orange.600' />
+      <IconBadge text={coffeeGrind} icon={TbColorFilter} color='orange.600' />
+      <IconBadge text={waterWeight + 'g'} icon={TbDroplet} color='blue.600' />
+      <IconBadge
+        text={waterTemp + '°'}
+        icon={FaThermometerThreeQuarters}
+        color='blue.600'
+      />
+      <IconBadge
+        text={formatMinutesSeconds(brewTime)}
+        icon={BiTimeFive}
+        color='purple.700'
+      />
     </>
   );
 }

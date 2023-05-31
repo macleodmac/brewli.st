@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import { Container, Grid, GridItem } from '@chakra-ui/react';
 import { RecipeInformation } from '@src/components/RecipeInformation/RecipeInformation';
+import { RecipeStepAlt } from '@src/components/RecipeStep/RecipeStepAlt';
 import { RecipeTags } from '@src/components/RecipeTags/RecipeTags';
 import { RecipeTimeline } from '@src/components/RecipeTimeline/RecipeTimeline';
 import { RecipeTitle } from '@src/components/Title/Title';
@@ -34,11 +35,11 @@ export default function Page({ recipe }: RecipePageProps) {
         <IconBadge text={''} icon={BiArrowBack} color={'brown.900'} />
       </Box> */}
       <Container maxW='container.xl' pt={2}>
-        <Grid templateColumns='repeat(3, 1fr)' rowGap={2} columnGap={5}>
-          <GridItem w='100%' colSpan={3}>
+        <Grid templateColumns='repeat(5, 1fr)' rowGap={2} columnGap={5}>
+          <GridItem w='100%' colSpan={5}>
             <RecipeTitle title={recipe.title} />
           </GridItem>
-          <GridItem w='100%' colSpan={3}>
+          <GridItem w='100%' colSpan={5}>
             <RecipeTags
               brewTime={recipe.brewTime}
               coffeeWeight={recipe.coffee.grams}
@@ -49,14 +50,19 @@ export default function Page({ recipe }: RecipePageProps) {
             />
           </GridItem>
 
-          <GridItem colSpan={{ base: 3, md: 1 }}>
+          <GridItem colSpan={{ base: 5, md: 2 }}>
             <RecipeInformation
               description={recipe.description}
               link={recipe.link}
             />
+            <RecipeStepAlt
+              title={'Preparation'}
+              description={recipe.methodPrep}
+            />
           </GridItem>
-          <GridItem colSpan={{ base: 3, md: 2 }}>
+          <GridItem colSpan={{ base: 5, md: 3 }}>
             <RecipeTimeline
+              prepStep={recipe.methodPrep}
               steps={recipe.method.map((step, index) => ({
                 number: index + 1,
                 time: step.time,

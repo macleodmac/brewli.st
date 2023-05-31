@@ -11,9 +11,9 @@ export function BaseCard({ children, color, ...props }: BaseCardProps) {
   return (
     <Box
       rounded={'sm'}
-      mb={5}
+      mb={4}
       overflow={'hidden'}
-      bg="white"
+      bg='white'
       border={'1px'}
       borderColor={color}
       boxShadow={`4px 4px 0 var(--chakra-colors-${color.replace('.', '-')})`}

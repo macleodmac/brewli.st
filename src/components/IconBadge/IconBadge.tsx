@@ -16,7 +16,7 @@ export function IconBadge({ icon, text, color, ...props }: IconBadgeProps) {
       <HStack spacing={0} minHeight='20px' display='flex'>
         <Box
           pt={1.5}
-          pr={text ? 1 : 2}
+          pr={text ? 0.5 : 2}
           pb={1.5}
           pl={2}
           height='100%'

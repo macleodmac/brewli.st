@@ -1,15 +1,21 @@
-import { RecipeStepAlt, RecipeStepProps } from '../RecipeStep/RecipeStepAlt';
+import { RecipeStepAlt } from '../RecipeStep/RecipeStepAlt';
 
-interface RecipeTimelineProps {
-  steps: RecipeStepProps[];
+interface RecipeTimelineStepProps {
+  number: number;
+  time?: number;
+  targetWeight?: number;
+  description: string;
 }
-export function RecipeTimeline({ steps }: RecipeTimelineProps) {
+interface RecipeTimelineProps {
+  prepStep: string;
+  steps: RecipeTimelineStepProps[];
+}
+export function RecipeTimeline({ steps, prepStep }: RecipeTimelineProps) {
   return (
     <>
       {steps.map((step) => (
         <RecipeStepAlt
-          key={step.number}
-          number={step.number}
+          title={'Step ' + step.number}
           time={step.time}
           targetWeight={step.targetWeight}
           description={step.description}
