@@ -1,12 +1,11 @@
 import { Box } from '@chakra-ui/react';
 import { faker } from '@faker-js/faker';
 import { Meta, StoryFn } from '@storybook/react';
-import { RecipeStep, RecipeStepProps } from './RecipeStep';
-import { RecipeStepAlt } from './RecipeStepAlt';
+import { RecipeStepAlt, RecipeStepProps } from './RecipeStepAlt';
 
-const meta: Meta<typeof RecipeStep> = {
+const meta: Meta<typeof RecipeStepAlt> = {
   title: 'Components/RecipeStep',
-  component: RecipeStep,
+  component: RecipeStepAlt,
   argTypes: {},
 };
 
@@ -14,8 +13,7 @@ export default meta;
 
 const Template: StoryFn<RecipeStepProps> = (args) => (
   <>
-    <Box w="700px">
-      <RecipeStep {...args} />
+    <Box w='700px'>
       <RecipeStepAlt {...args} />
     </Box>
   </>
@@ -24,7 +22,7 @@ const Template: StoryFn<RecipeStepProps> = (args) => (
 export const Default = Template.bind({});
 
 Default.args = {
-  number: 1,
+  title: 'My step',
   time: 120,
   targetWeight: 100,
   description: faker.lorem.paragraph(1),

@@ -2,7 +2,7 @@ import { BiTimeFive } from 'react-icons/bi';
 import { FaThermometerThreeQuarters } from 'react-icons/fa';
 import { TbColorFilter, TbDroplet, TbFlame, TbWeight } from 'react-icons/tb';
 import { IconBadge } from '../IconBadge/IconBadge';
-import { formatMinutesSeconds } from '../RecipeStep/RecipeStep';
+import { formatMinutesSeconds } from '../RecipeStep/RecipeStepAlt';
 
 interface RecipeTagsProps {
   brewTime: number;

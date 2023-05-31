@@ -13,6 +13,7 @@ import { MinimalRecipe, notionClient } from '@src/notion';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+
 interface HomePageProps {
   initialRecipes: MinimalRecipe[];
   initialFilteredRecipes: MinimalRecipe[];
