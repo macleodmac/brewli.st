@@ -1,11 +1,11 @@
 import { Box, Container, Spacer, useDisclosure } from '@chakra-ui/react';
 import { FlatCard } from '@src/components/Card/FlatCard';
+import { FilterStates, SearchModal } from '@src/components/Search/SearchModal';
 import { MinimalRecipe, notionClient } from '@src/notion';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { SearchBar } from './(components)/SearchBar';
-import { FilterStates, SearchModal } from './(components)/SearchModal';
+import { SearchBar } from '../src/components/Search/SearchBar';
 
 interface HomePageProps {
   initialRecipes: MinimalRecipe[];
