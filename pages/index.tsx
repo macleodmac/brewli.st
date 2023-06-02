@@ -1,18 +1,11 @@
-import {
-  Box,
-  Container,
-  Flex,
-  HStack,
-  Input,
-  Spacer,
-  Text,
-} from '@chakra-ui/react';
-import { BaseCard } from '@src/components/Card/BaseCard';
+import { Box, Container, Spacer, useDisclosure } from '@chakra-ui/react';
 import { FlatCard } from '@src/components/Card/FlatCard';
 import { MinimalRecipe, notionClient } from '@src/notion';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { SearchBar } from './(components)/SearchBar';
+import { FilterStates, SearchModal } from './(components)/SearchModal';
 
 interface HomePageProps {
   initialRecipes: MinimalRecipe[];
@@ -28,79 +21,61 @@ export default function HomePage({
   const [filteredRecipes, setFilteredRecipes] = useState<MinimalRecipe[]>(
     initialFilteredRecipes
   );
-  const [filter, setFilter] = useState(initialFilter || '');
+  const [searchValue, setSearchValue] = useState(initialFilter || '');
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const router = useRouter();
 
   // TODO: handle debounce
   // TODO: make search bar fixed on scroll
-  const handleFilterChange = (filter: string) => {
-    setFilter(filter);
+  const handleSearchValueChange = (filter: string) => {
+    setSearchValue(filter);
     const filteredItems = initialRecipes.filter((recipe) =>
       recipe.title.toLowerCase().includes(filter.toLowerCase())
     );
     setFilteredRecipes(filteredItems);
-    if (filter !== '') {
-      router.replace({
-        query: { q: filter },
-      });
-    }
+    router.replace({
+      query: { ...router.query, q: filter },
+    });
   };
 
   const handleInputChange = (event: { target: { value: any } }) => {
+    console.log(event.target.value);
     const inputValue = event.target.value;
-    handleFilterChange(inputValue);
+    handleSearchValueChange(inputValue);
+  };
+
+  const handleModalSave = (filterStates: FilterStates) => {
+    var cups = [];
+    if (filterStates.oneCup) {
+      cups.push('one');
+    }
+    if (filterStates.twoCup) {
+      cups.push('two');
+    }
+    var roast = [];
+    if (filterStates.lightRoast) {
+      roast.push('light');
+    }
+    if (filterStates.mediumRoast) {
+      roast.push('medium');
+    }
+    if (filterStates.darkRoast) {
+      roast.push('dark');
+    }
+    router.replace({
+      query: { ...router.query, cups, roast },
+    });
   };
 
   return (
     <>
       <Box position='relative'>
-        <Box display='flex' bg='white' position='fixed' w={'100%'}>
-          <Container maxW='container.xl' p={4}>
-            <BaseCard mb={0} w='full'>
-              <HStack>
-                <Flex
-                  p={4}
-                  alignItems='center'
-                  justifyContent={'space-between'}
-                  roundedLeft={'xxs'}
-                  borderRight={'1px'}
-                  borderColor={'brown.900'}
-                  bgColor={'navy.600'}
-                  textColor={'white'}
-                  as={'a'}
-                  href={'/'}
-                >
-                  <Text
-                    fontSize={'xl'}
-                    fontWeight={'semibold'}
-                    textColor={'inherit'}
-                  >
-                    brewli.st
-                  </Text>
-                </Flex>
-                <Flex
-                  p={4}
-                  alignItems='center'
-                  justifyContent={'space-between'}
-                  cursor='pointer'
-                  color={'navy.600'}
-                  flex={1}
-                >
-                  <Input
-                    size={'lg'}
-                    rounded={'none'}
-                    p={0}
-                    variant='unstyled'
-                    placeholder='Search...'
-                    value={filter}
-                    onChange={handleInputChange}
-                  />
-                </Flex>
-              </HStack>
-            </BaseCard>
-          </Container>
-        </Box>
+        <SearchBar
+          searchValue={searchValue}
+          handleSearchChange={handleInputChange}
+          modalOpen={onOpen}
+        />
         <Spacer h={24} />
         <Box pb={8}>
           <Container
@@ -122,6 +97,18 @@ export default function HomePage({
           </Container>
         </Box>
       </Box>
+      <SearchModal
+        isOpen={isOpen}
+        onClose={onClose}
+        onSave={handleModalSave}
+        initialStates={{
+          oneCup: false,
+          twoCup: false,
+          lightRoast: false,
+          mediumRoast: false,
+          darkRoast: false,
+        }}
+      />
     </>
   );
 }
