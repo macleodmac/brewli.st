@@ -20,13 +20,16 @@ export function IconBadge({
   ...props
 }: IconBadgeProps) {
   const dynamicColor = isActive || !animateOnActive ? color : 'gray.500';
+
+  if (dynamicColor.includes('.')) {
+    var boxColor = `var(--chakra-colors-${color.replace('.', '-')})`;
+  } else {
+    var boxColor = dynamicColor;
+  }
   const activeAnimationProps = animateOnActive
     ? {
         _active: {
-          boxShadow: `2px 2px 0 var(--chakra-colors-${color.replace(
-            '.',
-            '-'
-          )})`,
+          boxShadow: `2px 2px 0 ${boxColor}`,
           transform: 'translate(2px, 2px)',
         },
         cursor: 'pointer',

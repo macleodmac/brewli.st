@@ -40,7 +40,6 @@ export default function HomePage({
   };
 
   const handleInputChange = (event: { target: { value: any } }) => {
-    console.log(event.target.value);
     const inputValue = event.target.value;
     handleSearchValueChange(inputValue);
   };

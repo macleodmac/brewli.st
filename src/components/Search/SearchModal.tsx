@@ -1,5 +1,6 @@
 import {
   Button,
+  Divider,
   Heading,
   Modal,
   ModalBody,
@@ -62,7 +63,9 @@ export function SearchModal({
         <ModalHeader>Filters</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Heading size={'md'}>Brew Size</Heading>
+          <Heading size={'md'} pb={3}>
+            Brew Size
+          </Heading>
           <IconBadge
             text='1-cup'
             icon={BiCoffee}
@@ -79,11 +82,14 @@ export function SearchModal({
             isActive={filterStates.twoCup}
             onClick={() => handleFilterToggle('twoCup')}
           />
-          <Heading size={'md'}>Recommended Roast</Heading>
+          <Divider pb={2} mb={3}></Divider>
+          <Heading size={'md'} pb={3}>
+            Recommended Roast
+          </Heading>
           <IconBadge
             text='Light'
             icon={CoffeeBeanIcon}
-            color='brown.700'
+            color='#DDB58B'
             animateOnActive
             isActive={filterStates.lightRoast}
             onClick={() => handleFilterToggle('lightRoast')}
@@ -91,7 +97,7 @@ export function SearchModal({
           <IconBadge
             text='Medium'
             icon={CoffeeBeanIcon}
-            color='brown.800'
+            color='#8B5742'
             animateOnActive
             isActive={filterStates.mediumRoast}
             onClick={() => handleFilterToggle('mediumRoast')}
@@ -99,7 +105,7 @@ export function SearchModal({
           <IconBadge
             text='Dark'
             icon={CoffeeBeanIcon}
-            color='brown.900'
+            color='#3F2E2E'
             animateOnActive
             isActive={filterStates.darkRoast}
             onClick={() => handleFilterToggle('darkRoast')}
