@@ -1,7 +1,12 @@
 import { extendTheme } from '@chakra-ui/react';
 import { Work_Sans } from 'next/font/google';
 
-const font = Work_Sans({ weight: ['400', '500', '600', '700', '800'], subsets: ['latin'] });
+const font = Work_Sans({
+  display: 'swap',
+  weight: ['400', '500', '600', '700', '800'],
+  subsets: ['latin'],
+  preload: true,
+});
 
 export const brewListTheme = extendTheme({
   styles: {
