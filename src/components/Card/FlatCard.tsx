@@ -2,7 +2,7 @@ import { Box, Center, Flex, HStack, Heading, Text } from '@chakra-ui/react';
 import { brewListTheme } from '@src/index';
 import Link from 'next/link';
 import { BsArrowUpRight } from 'react-icons/bs';
-import SvgFiltercone from '../CoffeeIcon/Filtercone';
+import { Scales } from '../Icon/Icon';
 import { BaseCard } from './BaseCard';
 
 export interface RecipeCardProps {
@@ -23,7 +23,7 @@ export function FlatCard({
   return (
     <Center pt={pt}>
       <BaseCard mb={4}>
-        <Box p={4}>
+        <Box p={6}>
           {isNew && (
             <BaseCard
               color='green'
@@ -50,6 +50,7 @@ export function FlatCard({
         <HStack borderTop={'1px'} color='brown.900' m={0}>
           <Flex
             p={4}
+            pl={6}
             alignItems='center'
             justifyContent={'space-between'}
             roundedBottom={'none'}
@@ -64,13 +65,14 @@ export function FlatCard({
             </Text>
             <BsArrowUpRight color={brewListTheme.colors.navy[600]} />
           </Flex>
-          <SvgFiltercone
-            // strokeWidth={10}
-            width={55}
-            height={55}
-            fill={brewListTheme.colors.navy[600]}
-            style={{ marginLeft: '0.35rem', marginRight: '0.35rem' }}
-          />
+          <Box width='37px' m={0}>
+            <Scales
+              height={'100%'}
+              width={'100%'}
+              color={brewListTheme.colors.navy[600]}
+              m={0}
+            />
+          </Box>
         </HStack>
       </BaseCard>
     </Center>
